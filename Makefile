@@ -1,4 +1,5 @@
-EXTRA_CFLAGS += -O1
+EXTRA_CFLAGS += $(USER_EXTRA_CFLAGS)
+EXTRA_CFLAGS += -Os
 #EXTRA_CFLAGS += -O3
 #EXTRA_CFLAGS += -Wall
 #EXTRA_CFLAGS += -Wextra
@@ -50,7 +51,7 @@ CONFIG_SDIO_HCI = y
 CONFIG_GSPI_HCI = n
 ########################## Features ###########################
 CONFIG_MP_INCLUDED = y
-CONFIG_POWER_SAVING = y
+CONFIG_POWER_SAVING = n
 CONFIG_IPS_MODE = default
 CONFIG_LPS_MODE = default
 CONFIG_USB_AUTOSUSPEND = n
@@ -91,7 +92,7 @@ CONFIG_RTW_UP_MAPPING_RULE = tos
 CONFIG_RTW_DEBUG = y
 # default log level is _DRV_INFO_ = 4,
 # please refer to "How_to_set_driver_debug_log_level.doc" to set the available level.
-CONFIG_RTW_LOG_LEVEL = 4
+CONFIG_RTW_LOG_LEVEL = 2
 
 # enable /proc/net/rtlxxxx/ debug interfaces
 CONFIG_PROC_DEBUG = y
@@ -1291,7 +1292,9 @@ EXTRA_CFLAGS += -DCONFIG_IOCTL_CFG80211 -DRTW_USE_CFG80211_STA_EVENT
 EXTRA_CFLAGS += -DCONFIG_RADIO_WORK
 
 ifeq ($(CONFIG_PLATFORM_I386_PC), y)
+EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
 EXTRA_CFLAGS += -DCONFIG_IOCTL_CFG80211 -DRTW_USE_CFG80211_STA_EVENT
+
 SUBARCH := $(shell uname -m | sed -e s/i.86/i386/)
 ARCH ?= $(SUBARCH)
 CROSS_COMPILE ?=
